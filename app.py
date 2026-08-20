@@ -48,16 +48,20 @@ st.markdown("""
 <p>
 <em> Sources pour les données : </em>
 <ul>
-<li> Fond carte OpenSreetMap © OSM Contributors - IGN ADMIN EXPRESS Départements PE </li>
-<li> Données INAO SIQO Fromages 2025 - Licence ouverte ETALAB </li>
+<small>
+    <li> Fond carte OpenSreetMap © OSM Contributors - IGN ADMIN EXPRESS Départements PE </li>
+    <li> Données INAO SIQO Fromages 2025 - Licence ouverte ETALAB </li>
+</small>
 </ul>
 </p>
 <p> 
 <em>  Sources pour la programmation : </em>
 <ul>
-<li> data-geek-lab / real time dashboard - MIT License - Copyright (c) 2025 Data-Geek-is-my-Name </li>
-<li> How to Build choropleth map in Python | Streamlit Tutorial #3 | Data Driven Maps With Python Folium - SCIENCE AND SCIENCE ONLY - Youtube</li>
+<small>
+    <li> data-geek-lab / real time dashboard - MIT License - Copyright (c) 2025 Data-Geek-is-my-Name </li>
+    <li> How to Build choropleth map in Python | Streamlit Tutorial #3 | Data Driven Maps With Python Folium - SCIENCE AND SCIENCE ONLY - Youtube</li>
 </ul>
+</small>
 </p>
 
 <br>
