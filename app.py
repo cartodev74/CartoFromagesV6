@@ -1,13 +1,17 @@
 import streamlit as st #création de la page web
 import sqlalchemy #récupération de sqlalchemy
-import psycopg2
+
 
 import os
 
 CUR_DIR = os.path.dirname(__file__)
 
-
-conn = st.connection("postgresql", type="sql")
+# Le st.connection de STREAMLIT gère la récupération
+#  - des secrets,
+#  - la configuration,
+#  - la mise en cache des requêtes SQL (ici moins de 10 min)
+#  - les retentatives
+conn = st.connection("postgresql", type="sql", ttl="10m")
 
 # --- Streamlit Config ---
 st.set_page_config(page_title="Fromage", layout="wide")
