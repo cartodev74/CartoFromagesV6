@@ -110,6 +110,14 @@ st.subheader("Carte interactive")
 st.subheader("Crédits")
 st.markdown("""
 <p>
+<em> Contributions : </em>
+<ul>
+<small>
+    <li> Merci à Pascaline pour sa relecture et le classement des SIQO </li>
+</small>
+</ul>
+</p>
+<p>
 <em> Sources pour les données : </em>
 <ul>
 <small>
