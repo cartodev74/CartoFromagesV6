@@ -55,7 +55,7 @@ fichier_photo = "0" + str(SIQO_id) + ".jpg"
 
 ## --- Texte ---
 st.subheader("Texte")
-st.text(f"Le fromage choisi a le numéro SIQO {SIQO_id} de l'INAO")
+st.text(f"Le fromage choisi a le numéro SIQO* {SIQO_id} de l'INAO" *Signe officiel d'Identification de la Qualité et de l'Origine)
 
 ## calcul surface
 vue_selectionnee = recherche_vue(int(SIQO_id))
