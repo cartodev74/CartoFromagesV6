@@ -110,10 +110,10 @@ st.subheader("Carte interactive")
 st.subheader("Crédits")
 st.markdown("""
 <p>
-<em> Contributions : </em>
+<em> Contribution(s) : </em>
 <ul>
 <small>
-    <li> Merci à Pascaline pour sa relecture et le classement des SIQO </li>
+    <li> Merci à Pascaline pour sa relecture attentive et le classement des SIQO </li>
 </small>
 </ul>
 </p>
