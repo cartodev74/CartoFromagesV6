@@ -37,6 +37,7 @@ sorted_df = df.sort_values(by='nom')
 
 # récupération du département sélectionné
 selected_fromage = st.selectbox(label='Choisissez une SIQO fromage', options= sorted_df['nom'],index=0)
+st.text(rf"*SIQO = Signe officiel d'Identification de la Qualité et de l'Origine")
 
 # filtre et récupération dans le dataframe de la ligne avec le nom du fromage choisi
 filtered_data = df[df['nom']==selected_fromage]
@@ -55,8 +56,8 @@ fichier_photo = "0" + str(SIQO_id) + ".jpg"
 
 ## --- Texte ---
 st.subheader("Texte")
-st.text(rf"Le fromage choisi a le numéro SIQO* {SIQO_id} de l'INAO ")
-st.text(rf"*SIQO = Signe officiel d'Identification de la Qualité et de l'Origine")
+st.text(rf"Le fromage choisi a le numéro SIQO {SIQO_id} de l'INAO ")
+
 
 ## calcul surface
 vue_selectionnee = recherche_vue(int(SIQO_id))
