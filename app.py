@@ -1,8 +1,16 @@
-import streamlit as st #création de la page web
-import sqlalchemy #récupération de sqlalchemy
+import streamlit as st
+import plotly.express as px #affichage des graphiques
+import folium #gestion affichage
+import geopandas
+from sqlalchemy import create_engine
 
+from utils.recherche import recherche_vue
+from utils.format import separateur_millier
 
 import os
+import pickle
+
+
 
 CUR_DIR = os.path.dirname(__file__)
 
@@ -30,11 +38,67 @@ sorted_df = df.sort_values(by='nom')
 # récupération du département sélectionné
 selected_fromage = st.selectbox(label='Choisissez une SIQO fromage', options= sorted_df['nom'],index=0)
 
+# filtre et récupération dans le dataframe de la ligne avec le nom du fromage choisi
+filtered_data = df[df['nom']==selected_fromage]
+
+# dans la ligne, on récupère le numéro SIQO id_inao
+numero_SIQO = filtered_data['id_inao']
+
+# dans la cellule choisie, on prend la valeur
+SIQO_id = numero_SIQO.values[0]
+
+fichier_photo = "0" + str(SIQO_id) + ".jpg"
+
+
+
+
+
 ## --- Texte ---
 st.subheader("Texte")
+st.text(f"Le fromage choisi a le numéro SIQO {SIQO_id} de l'INAO")
+
+## calcul surface
+vue_selectionnee = recherche_vue(int(SIQO_id))
+
+df_surface_SIQO = conn.query(f"SELECT st_area(st_union(wkb_geometry))/1000000 as surf_km from {vue_selectionnee}")
+surface_SIQO_selectionne = df_surface_SIQO.values[0,0]
+
+st.text(f"La surface totale de cette SIQO : {separateur_millier(surface_SIQO_selectionne)} km²")
+
+st.image(f"https://fel.alwaysdata.net/images/{fichier_photo}", caption=None, width=400)
 
 ## --- Graph ---
+
 st.subheader("Graphique")
+
+
+
+df_effectif_dept_SIQO = conn.query(f"""select dept.nom_dept_min, mv.code_dept,count(mv.id_insee)
+from {vue_selectionnee} as mv,departement_geofla_2010 as dept
+where mv.code_dept = dept.code_dept
+group by mv.code_dept, dept.nom_dept_min""")
+
+df_effectif_dept_SIQO_sorted = df_effectif_dept_SIQO.sort_values(by='count',  ascending=False)
+
+
+df_liste_categorie = df_effectif_dept_SIQO_sorted[['nom_dept_min']]
+
+liste_categorie =[]
+for i in df_liste_categorie.index:
+    liste_categorie.append (df_liste_categorie["nom_dept_min"][i])
+
+df_liste_effectif = df_effectif_dept_SIQO_sorted[['count']]
+
+liste_effectif = []
+for i in df_liste_effectif.index:
+    liste_effectif.append(df_liste_effectif["count"][i])
+
+fig = px.bar(liste_categorie, y = liste_effectif, x=liste_categorie, color= liste_categorie,
+             title="Nombres de communes labelisées par département")
+
+st.plotly_chart(fig,width=400)
+
+
 
 ## --- Map ---
 st.subheader("Carte interactive")
